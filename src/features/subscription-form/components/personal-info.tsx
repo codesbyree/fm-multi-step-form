@@ -20,7 +20,7 @@ export default function PersonalInfo() {
   );
 
   const { switchView, changeDirection, changeActiveIndex } = useMSFContext();
-  const [formError, setFormError] = useState<any[]>([]);
+  const [formError, setFormError] = useState<{ path: string; message: string }[]>([]);
 
   const handleSubmit = (e: SyntheticEvent) => {
     try {
@@ -31,7 +31,10 @@ export default function PersonalInfo() {
       changeDirection(1);
       changeActiveIndex(2);
     } catch (error) {
-      if (error instanceof z.ZodError) setFormError(parseValidationError(error));
+      if (error instanceof z.ZodError) {
+        const parsedError = parseValidationError(error);
+        setFormError(parsedError as { path: string; message: string }[]);
+      }
     }
   };
 
@@ -39,6 +42,7 @@ export default function PersonalInfo() {
     setFormError([]);
 
     const { name, value } = e.target;
+
     const payload = {
       ...formValues,
       [name]: value,
