@@ -5,11 +5,17 @@ import { Button } from "../../../components/ui/button";
 import { useMSFContext } from "./multi-step-form";
 import { getTotal } from "../utils/utils";
 import { cn } from "../../../utils/cn.utils";
+import { useShallow } from "zustand/shallow";
 
 export default function Summary() {
-  const formValues = useSubsFormStore((s) => s.formValues);
+  const { formValues, clearForm } = useSubsFormStore(
+    useShallow((s) => ({
+      formValues: s.formValues,
+      clearForm: s.clearForm,
+    })),
+  );
 
-  const { switchView, changeDirection } = useMSFContext();
+  const { switchView, changeDirection, changeActiveIndex } = useMSFContext();
 
   const prevForm = () => {
     switchView(FORM_STEPS.addons);
@@ -19,6 +25,12 @@ export default function Summary() {
   const backToPlanView = () => {
     switchView(FORM_STEPS.plan);
     changeDirection(-1);
+  };
+
+  const handleClearForm = () => {
+    clearForm();
+    changeActiveIndex(1);
+    switchView(FORM_STEPS.info);
   };
 
   return (
@@ -70,7 +82,7 @@ export default function Summary() {
         <Button data-variant="ghost" className="-ml-6" onClick={prevForm}>
           Go Back
         </Button>
-        <Button>Confirm</Button>
+        <Button onClick={handleClearForm}>Confirm</Button>
       </div>
     </div>
   );
