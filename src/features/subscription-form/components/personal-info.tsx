@@ -60,10 +60,10 @@ export default function PersonalInfo() {
   const isFormValid = formReadyForSubmit();
 
   return (
-    <div className="flex flex-col pt-10 pb-4 justify-between flex-1">
-      <div className="space-y-8">
+    <div className="flex flex-col lg:pt-10 lg:pb-4 justify-between flex-1 bg-blue-100 lg:bg-transparent">
+      <div className="space-y-8 p-6 lg:p-0 shadow-xl rounded-xl bg-white lg:shadow-none -mt-20 lg:m-0 mx-6">
         <div>
-          <h4 className="text-3xl font-bold text-blue-950">Personal info</h4>
+          <h4 className="text-2xl lg:text-3xl font-bold text-blue-950 mb-2">Personal info</h4>
           <p className="text-gray-500">Please provide your name, email address, and phone number.</p>
         </div>
 
@@ -90,7 +90,7 @@ export default function PersonalInfo() {
         </form>
       </div>
 
-      <div className="flex justify-end">
+      <div className="flex justify-end bg-white p-4 lg:p-0 lg:bg-transparent">
         <Button onClick={handleSubmit} disabled={!isFormValid} type="submit" form="form-personal-info">
           Next Step
         </Button>

@@ -29,15 +29,16 @@ export default function Summary() {
 
   const handleClearForm = () => {
     clearForm();
-    changeActiveIndex(1);
-    switchView(FORM_STEPS.info);
+    changeActiveIndex(5);
+    changeDirection(1);
+    switchView(FORM_STEPS.thanks);
   };
 
   return (
-    <div className="flex flex-col pt-10 pb-4 justify-between flex-1">
-      <div className="space-y-8">
+    <div className="flex flex-col lg:pt-10 lg:pb-4 justify-between flex-1 bg-blue-100 lg:bg-transparent">
+      <div className="space-y-8 p-6 lg:p-0 shadow-xl rounded-xl bg-white lg:shadow-none -mt-20 lg:m-0 mx-6">
         <div>
-          <h4 className="text-3xl font-bold text-blue-950">Finishing up</h4>
+          <h4 className="text-2xl lg:text-3xl font-bold text-blue-950 mb-2">Finishing up</h4>
           <p className="text-gray-500">Double-check everything looks OK before confirming.</p>
         </div>
 
@@ -55,7 +56,9 @@ export default function Summary() {
               </button>
             </div>
 
-            <p className="font-semibold text-blue-950">${formValues.type.price}/mo</p>
+            <p className="font-semibold text-blue-950">
+              ${formValues.billing === "monthly" ? formValues.type.price : formValues.type.price * 12}/{formValues.billing === "monthly" ? "mo" : "yr"}
+            </p>
           </div>
 
           <span className={cn("w-full bg-grey-500/20 h-px hidden", formValues.addOns.length && "block")} />
@@ -64,7 +67,9 @@ export default function Summary() {
             {formValues.addOns.map((item) => (
               <li key={item.name} className="flex items-cemter justify-between">
                 <p className="text-grey-500">{item.name}</p>
-                <p className="text-gray-800">+{item.price}/mo</p>
+                <p className="text-gray-800">
+                  +{formValues.billing === "monthly" ? item.price : item.price * 12}/{formValues.billing === "monthly" ? "mo" : "yr"}
+                </p>
               </li>
             ))}
           </ul>
@@ -73,12 +78,12 @@ export default function Summary() {
         <div className="flex items-center gap-6 justify-between px-6">
           <p className="font-medium text-grey-500">{formValues.billing === "monthly" ? "Total (per month)" : "Total (per year)"}</p>
           <p className="text-blue-600 font-semibold text-xl">
-            +{getTotal(formValues.billing, formValues.type, formValues.addOns)}/{formValues.billing === "monthly" ? "mo" : "year"}
+            +{getTotal(formValues.billing, formValues.type, formValues.addOns)}/{formValues.billing === "monthly" ? "mo" : "yr"}
           </p>
         </div>
       </div>
 
-      <div className="flex justify-between">
+      <div className="flex justify-between bg-white p-4 lg:p-0 lg:bg-transparent">
         <Button data-variant="ghost" className="-ml-6" onClick={prevForm}>
           Go Back
         </Button>

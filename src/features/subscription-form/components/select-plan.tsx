@@ -64,26 +64,33 @@ export default function SelectPlan() {
     changeDirection(-1);
   };
 
+  const getFixedPrice = (base: number) => {
+    if (formValues.billing === "monthly") return base;
+    return base * 12;
+  };
+
   return (
-    <div className="flex flex-col pt-10 pb-4 justify-between flex-1">
-      <div className="space-y-8">
+    <div className="flex flex-col lg:pt-10 lg:pb-4 lg:x-0 justify-between flex-1 bg-blue-100 lg:bg-transparent">
+      <div className="space-y-8 p-6 lg:p-0 shadow-xl rounded-xl bg-white lg:shadow-none -mt-20 lg:m-0 mx-6">
         <div>
-          <h4 className="text-3xl font-bold text-blue-950">Select your plan</h4>
+          <h4 className="text-2xl lg:text-3xl font-bold text-blue-950 mb-2">Select your plan</h4>
           <p className="text-gray-500">You have the option of monthly or yearly billing.</p>
         </div>
 
         <form onSubmit={handleSubmit} id="form-plan" className="space-y-10">
-          <div className="grid grid-cols-3 gap-5">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-2 lg:gap-5">
             {plans.map((plan) => (
               <label key={plan.name} data-active={formValues.type.name === plan.name} className="group">
                 <input className="sr-only" type="radio" name="type" value={plan.name} onChange={handleChange} />
 
-                <div className="bg-white p-4 rounded-xl border border-grey-500/30 space-y-16 cursor-pointer hover:border-purple-600 transition-all group-data-[active='true']:bg-blue-100 group-data-[active='true']:border-purple-600">
-                  {plan.icon}
+                <div className="bg-white p-4 rounded-xl border border-grey-500/30 flex gap-4 lg:gap-16 lg:flex-col cursor-pointer hover:border-purple-600 transition-all group-data-[active='true']:bg-blue-100 group-data-[active='true']:border-purple-600 items-center lg:items-start">
+                  <div className="w-10">{plan.icon}</div>
 
                   <div className="flex flex-col">
                     <span className="text-blue-950 font-semibold text-lg">{plan.name}</span>
-                    <span className="text-grey-500">${plan.price}/mo</span>
+                    <span className="text-grey-500">
+                      ${getFixedPrice(plan.price)}/{formValues.billing === "monthly" ? "mo" : "yr"}
+                    </span>
                   </div>
                 </div>
               </label>
@@ -98,7 +105,7 @@ export default function SelectPlan() {
         </form>
       </div>
 
-      <div className="flex justify-between">
+      <div className="flex justify-between p-4 bg-white lg:bg-bg-transparent lg:p-0">
         <Button data-variant="ghost" className="-ml-6" onClick={prevForm}>
           Go Back
         </Button>

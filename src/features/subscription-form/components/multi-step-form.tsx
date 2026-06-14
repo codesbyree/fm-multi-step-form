@@ -66,29 +66,36 @@ function Step(props: StepProps) {
   const { currentView, switchView, activeIndex } = useMSFContext();
   const { className, value, step, disabled, ...rest } = props;
 
-  const isActive = value === currentView;
+  const isActive = () => {
+    if (activeIndex === 5) {
+      if (step >= 4) return true;
+    }
+    if (value === currentView) return true;
+    return false;
+  };
 
   const isDisabled = () => {
+    if (activeIndex === 5 && step !== 5) return true;
     if (disabled) return true;
-    if (activeIndex >= step) return true;
-    return false;
+    if (activeIndex >= step) return false;
+    return true;
   };
 
   return (
     <motion.button
-      disabled={!isDisabled()}
+      disabled={isDisabled()}
       whileHover={{ opacity: 0.8 }}
       whileTap={{ scale: 0.9 }}
-      data-active={isActive}
+      data-active={isActive()}
       className={cn("flex items-center gap-4 cursor-pointer text-white group disabled:opacity-50", className)}
       onClick={() => switchView(value)}
       {...rest}
     >
-      <span className="border w-8 h-8 rounded-full border-white grid place-items-center group-data-[active='true']:bg-blue-200 group-data-[active='true']:text-blue-950 transition-all font-medium text-sm group-data-[active='true']:border-blue-200">
+      <span className="border w-8 h-8 rounded-full border-white grid place-items-center group-data-[active='true']:bg-blue-50 group-data-[active='true']:text-blue-950 transition-all font-medium text-sm group-data-[active='true']:border-blue-50">
         {step}
       </span>
 
-      <span className="flex flex-col text-left">
+      <span className="flex-col text-left hidden lg:flex">
         <span className="opacity-60 text-sm leading-3.5">STEP {step}</span>
         <span className="font-medium text-sm tracking-wider leading-6">{props.children}</span>
       </span>
@@ -137,7 +144,7 @@ function Content(props: ContentProps) {
       className={cn("flex-1 flex flex-col", className)}
       {...rest}
     >
-      <div className="max-w-lg mx-auto w-full flex-1 flex flex-col">{props.children}</div>
+      <div className="lg:max-w-lg mx-auto w-full flex-1 flex flex-col">{props.children}</div>
     </motion.div>
   );
 }

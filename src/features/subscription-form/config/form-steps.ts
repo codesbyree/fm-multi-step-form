@@ -3,4 +3,5 @@ export const FORM_STEPS = {
   plan: "plan",
   addons: "addons",
   summary: "summary",
+  thanks: "thanks",
 };

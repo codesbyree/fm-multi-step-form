@@ -62,10 +62,10 @@ export default function AddOns() {
   };
 
   return (
-    <div className="flex flex-col pt-10 pb-4 justify-between flex-1">
-      <div className="space-y-8">
+    <div className="flex flex-col lg:pt-10 lg:pb-4 justify-between flex-1 bg-blue-100 lg:bg-transparent">
+      <div className="space-y-8 p-6 lg:p-0 shadow-xl rounded-xl bg-white lg:shadow-none -mt-20 lg:m-0 mx-6">
         <div>
-          <h4 className="text-3xl font-bold text-blue-950">Pick add-ons</h4>
+          <h4 className="text-2xl lg:text-3xl font-bold text-blue-950 mb-2">Pick add-ons</h4>
           <p className="text-gray-500">Add-ons help enhance your gaming experience.</p>
         </div>
 
@@ -80,18 +80,18 @@ export default function AddOns() {
                 </div>
 
                 <div className="flex-1">
-                  <p className="text-blue-950 font-medium">{item.name}</p>
-                  <span className="text-grey-500">{item.description}</span>
+                  <p className="text-blue-950 font-medium text-sm lg:text-base">{item.name}</p>
+                  <span className="text-grey-500 text-sm lg:text-base">{item.description}</span>
                 </div>
 
-                <p className="text-purple-600 font-medium">+${item.price}/mo</p>
+                <p className="text-purple-600 font-medium text-sm lg:text-base">+${item.price}/mo</p>
               </div>
             </label>
           ))}
         </form>
       </div>
 
-      <div className="flex justify-between">
+      <div className="flex justify-between bg-white p-4 lg:p-0 lg:bg-transparent">
         <Button data-variant="ghost" className="-ml-6" onClick={prevForm}>
           Go Back
         </Button>
