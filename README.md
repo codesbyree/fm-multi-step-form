@@ -1,75 +1,43 @@
-# React + TypeScript + Vite
+# Frontend Mentor - Multi Step Form
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+![](./og-preview.png)
 
-Currently, two official plugins are available:
+## Table of contents
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- [Screenshot](#screenshot)
+- [Links](#links)
+- [My process](#my-process)
+  - [Built with](#built-with)
+- [Author](#author)
 
-## React Compiler
 
-The React Compiler is enabled on this template. See [this documentation](https://react.dev/learn/react-compiler) for more information.
+### Screenshot
 
-Note: This will impact Vite dev & build performances.
+![](./screenshot.jpg)
 
-## Expanding the ESLint configuration
+### Links
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- Solution URL: [Open in Frontendmentor](https://www.frontendmentor.io/solutions/multi-step-form-built-with-react-vite-tailwind-css-and-motion-RgMqXWJHS6)
+- Live Site URL: [See the site live](https://fmmultistepform.netlify.app/)
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## My process
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+### Built With
+- React.Js + Vite
+- Typescript
+- Tailwind CSS
+- Motion (Framer Motion)
+- Flexbox
+- CSS Grid
+- Mobile-first workflow
+- [React](https://reactjs.org/) - JS library
+- [Vite](https://vite.dev/) - React framework
+- [TailwindCSS](https://tailwindcss.com/docs/installation/using-vite) - For styles
+- [Zustand](https://zustand.docs.pmnd.rs/) - For state management
+- [Motion](https://motion.dev/) - For animation
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+## Author
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+- Frontend Mentor - [@codesbyree](https://www.frontendmentor.io/profile/codesbyree)
+- Twitter - [@growth_ree](https://x.com/growth_ree)
+- Instagram - [@codesbyree](https://www.instagram.com/codesbyree/)
