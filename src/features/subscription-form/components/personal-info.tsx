@@ -10,6 +10,7 @@ import { useMSFContext } from "./multi-step-form";
 import { parseValidationError } from "../../../utils/form.utils";
 import { useSubsFormStore } from "../stores/subs-form-store";
 import { useShallow } from "zustand/shallow";
+import { FORM_STEPS } from "../config/form-steps";
 
 export default function PersonalInfo() {
   const { formValues, setFormValues } = useSubsFormStore(
@@ -27,7 +28,7 @@ export default function PersonalInfo() {
       e.preventDefault();
       personalInfoValidator.parse(formValues);
 
-      switchView("select-plan");
+      switchView(FORM_STEPS.plan);
       changeDirection(1);
       changeActiveIndex(2);
     } catch (error) {

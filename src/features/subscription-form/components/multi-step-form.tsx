@@ -142,10 +142,12 @@ function Content(props: ContentProps) {
   );
 }
 
+type WithValue = { value: string };
+
 export function Animated({ children }: { children: React.ReactNode }) {
   const { direction, currentView } = useMSFContext();
 
-  const activeChild = React.Children.toArray(children).find((child) => React.isValidElement(child) && child.props.value === currentView);
+  const activeChild = React.Children.toArray(children).find((child): child is React.ReactElement<WithValue> => React.isValidElement<WithValue>(child) && child.props.value === currentView);
 
   return (
     <AnimatePresence initial={false} custom={direction} mode="wait">

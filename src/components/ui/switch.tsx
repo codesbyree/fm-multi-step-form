@@ -15,7 +15,7 @@ export function Switch(props: ComponentPropsWithoutRef<"input">) {
     <label>
       <input type="checkbox" checked={checked} className={cn("sr-only peer", className)} name={name} onChange={handleChange} {...rest} />
       <div className="p-1 w-13 h-6 rounded-full cursor-pointer bg-blue-950 flex items-center">
-        <motion.div className="w-4 h-4 rounded-full bg-white" animate={{ x: checked ? 0 : 28 }} transition={{ type: "spring", stiffness: 500, damping: 30 }} />
+        <motion.div className="w-4 h-4 rounded-full bg-white" animate={{ x: checked ? 28 : 0 }} transition={{ type: "spring", stiffness: 500, damping: 30 }} />
       </div>
     </label>
   );

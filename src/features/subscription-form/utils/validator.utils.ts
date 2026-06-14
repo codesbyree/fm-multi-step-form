@@ -10,12 +10,21 @@ export const personalInfoValidator = z.object({
 });
 
 export const planValidator = z.object({
-  type: z.enum(["arcade", "advanced", "pro"]),
+  type: z.object({
+    name: z.string(),
+    price: z.number(),
+  }),
   billing: z.enum(["monthly", "yearly"]),
 });
 
 export const addonsValidator = z.object({
-  addOns: z.array(z.number()),
+  addOns: z.array(
+    z.object({
+      name: z.string(),
+      price: z.number(),
+      description: z.string(),
+    }),
+  ),
 });
 
 export const subsFormValidator = personalInfoValidator.extend(planValidator.shape).extend(addonsValidator.shape);

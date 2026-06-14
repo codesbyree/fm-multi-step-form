@@ -17,7 +17,10 @@ export const useSubsFormStore = create<Store>((set) => ({
     billing: "monthly",
     email: "",
     phoneNumber: "",
-    type: "pro",
+    type: {
+      name: "Arcade",
+      price: 9,
+    },
   },
   setFormValues: (formValues: SubsFormSchema) => set({ formValues }),
 }));

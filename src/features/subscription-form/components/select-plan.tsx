@@ -9,11 +9,12 @@ import { useSubsFormStore } from "../stores/subs-form-store";
 import { useShallow } from "zustand/shallow";
 import { Switch } from "../../../components/ui/switch";
 import { cn } from "../../../utils/cn.utils";
+import { FORM_STEPS } from "../config/form-steps";
 
 const plans = [
-  { name: "Arcade", price: "$9/mo", icon: <img src={IconArcade} alt="" /> },
-  { name: "Advanced", price: "$12/mo", icon: <img src={IconAdvanced} alt="" /> },
-  { name: "Pro", price: "$15/mo", icon: <img src={IconPro} alt="" /> },
+  { name: "Arcade", price: 9, icon: <img src={IconArcade} alt="" /> },
+  { name: "Advanced", price: 12, icon: <img src={IconAdvanced} alt="" /> },
+  { name: "Pro", price: 15, icon: <img src={IconPro} alt="" /> },
 ];
 
 export default function SelectPlan() {
@@ -24,17 +25,14 @@ export default function SelectPlan() {
     })),
   );
 
-  const { switchView, changeDirection } = useMSFContext();
+  const { switchView, changeDirection, changeActiveIndex } = useMSFContext();
 
   const handleSubmit = (e: SyntheticEvent) => {
-    try {
-      e.preventDefault();
+    e.preventDefault();
 
-      switchView("add-ons");
-      changeDirection(1);
-    } catch {
-      console.log("what");
-    }
+    switchView(FORM_STEPS.addons);
+    changeDirection(1);
+    changeActiveIndex(3);
   };
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -51,12 +49,18 @@ export default function SelectPlan() {
 
     setFormValues({
       ...formValues,
-      [name]: value,
+      [name]: plans
+        .map((p) => {
+          if (p.name === value) {
+            return { name: p.name, price: p.price };
+          }
+        })
+        .filter((x) => x)[0],
     });
   };
 
   const prevForm = () => {
-    switchView("user-info");
+    switchView(FORM_STEPS.info);
     changeDirection(-1);
   };
 
@@ -68,18 +72,18 @@ export default function SelectPlan() {
           <p className="text-gray-500">You have the option of monthly or yearly billing.</p>
         </div>
 
-        <form onSubmit={handleSubmit} className="space-y-10">
+        <form onSubmit={handleSubmit} id="form-plan" className="space-y-10">
           <div className="grid grid-cols-3 gap-5">
             {plans.map((plan) => (
-              <label key={plan.name} data-active={formValues.type === plan.name.toLowerCase()} className="group">
-                <input className="sr-only" type="radio" name="type" value={plan.name.toLowerCase()} onChange={handleChange} />
+              <label key={plan.name} data-active={formValues.type.name === plan.name} className="group">
+                <input className="sr-only" type="radio" name="type" value={plan.name} onChange={handleChange} />
 
                 <div className="bg-white p-4 rounded-xl border border-grey-500/30 space-y-16 cursor-pointer hover:border-purple-600 transition-all group-data-[active='true']:bg-blue-100 group-data-[active='true']:border-purple-600">
                   {plan.icon}
 
                   <div className="flex flex-col">
                     <span className="text-blue-950 font-semibold text-lg">{plan.name}</span>
-                    <span className="text-grey-500">{plan.price}</span>
+                    <span className="text-grey-500">${plan.price}/mo</span>
                   </div>
                 </div>
               </label>
@@ -98,7 +102,9 @@ export default function SelectPlan() {
         <Button data-variant="ghost" className="-ml-6" onClick={prevForm}>
           Go Back
         </Button>
-        <Button onClick={handleSubmit}>Next Step</Button>
+        <Button type="submit" form="form-plan">
+          Next Step
+        </Button>
       </div>
     </div>
   );
